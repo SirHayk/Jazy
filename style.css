@@ -365,12 +365,12 @@ body.no-webgl #aurora { display: none; }
     110deg,
     #ff4fa8 0%,
     #ff9fd6 15%,
-    #ffffff 24%,
-    #c58bff 36%,
-    #8a4dff 52%,
-    #c58bff 68%,
-    #ff4fa8 85%,
-    #ff4fa8 100%
+    #FEFFD1 24%,
+    #AED9FF 36%,
+    #AED9FF 52%,
+    #8C8FB3 68%,
+    #AED9FF 85%,
+    #FFDCF8 100%
   );
   background-size: 300% 100%;
   -webkit-background-clip: text;
@@ -504,6 +504,84 @@ body.no-webgl #aurora { display: none; }
     max-width: 92vw;
   }
   .spotify iframe { max-width: calc(92vw - 6px); }
+}
+
+/* ---------- Texto con estrellitas ---------- */
+.follow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 10px 0 2px;
+}
+
+.follow-line {
+  flex: 1;
+  max-width: 56px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 159, 214, 0.9));
+  box-shadow: 0 0 6px rgba(255, 79, 168, 0.6);
+}
+.follow-line:last-child { transform: scaleX(-1); }
+
+.follow-inner {
+  position: relative;
+  display: inline-block;
+  padding: 4px 6px;
+}
+
+.follow-text {
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.38em;
+  margin-right: -0.38em;
+  background: linear-gradient(
+    110deg,
+    #ff9fd6 0%,
+    #ffffff 20%,
+    #c58bff 40%,
+    #ff4fa8 60%,
+    #8a4dff 80%,
+    #ff9fd6 100%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation:
+    aurora-text 6s linear infinite,
+    title-glow 2.6s ease-in-out infinite alternate;
+}
+
+.star {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--s);
+  height: var(--s);
+  fill: var(--c);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.2);
+  filter: drop-shadow(0 0 3px var(--c)) drop-shadow(0 0 7px rgba(255, 79, 168, 0.8));
+  animation: twinkle 3s ease-in-out infinite;
+  animation-delay: var(--d);
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0;   transform: translate(-50%, -50%) scale(0.2) rotate(0deg); }
+  45%, 55% { opacity: 1;   transform: translate(-50%, -50%) scale(1) rotate(45deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .follow-text { animation: none; }
+  .star {
+    animation: none;
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

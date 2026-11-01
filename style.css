@@ -30,7 +30,7 @@ body {
   font-family: "Poppins", sans-serif;
   align-items: center;
   margin-top: 30px;
-  webkit-user-select: none; /* Safari */
+  -webkit-user-select: none; /* Safari */
             -moz-user-select: none;    /* Firefox */
             -ms-user-select: none;     /* IE 10+ y Edge antiguo */
             user-select: none;         /* Estándar (Chrome, Edge, Opera) */
@@ -74,7 +74,7 @@ body.no-webgl #aurora { display: none; }
 /* Borde de degradado rosa y morado que gira alrededor de la tarjeta */
 .container::before {
   content: "";
-  position: flex;
+  position: absolute;
   inset: 0;
   border-radius: inherit;
   padding: 3px;
@@ -189,8 +189,18 @@ body.no-webgl #aurora { display: none; }
   transition: all 0.2s ease;
 }
 
-.image img {
+.image {
+  overflow: hidden;
+  background: #1a0b2e;
+}
+
+.image video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
   border-radius: 50%;
+  display: block;
 }
 
 .round_bt_container:hover .ring {
@@ -305,8 +315,119 @@ body.no-webgl #aurora { display: none; }
   27%           { transform: translateY(-9px); }
 }
 
+
+/* ---------- Escenario: tarjeta + reproductor ---------- */
+.stage {
+  position: relative;
+}
+
+/* ---------- Conejito que se asoma ---------- */
+.bunny {
+  position: absolute;
+  right: 26px;
+  bottom: 3px; /* justo encima del borde: se asoma por dentro de la caja */
+  width: 84px;
+  height: 86px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 3;
+  /* la parte baja se difumina: no se ve ningún corte duro */
+  -webkit-mask-image: linear-gradient(to top, transparent 0, #000 22px);
+  mask-image: linear-gradient(to top, transparent 0, #000 22px);
+}
+
+.bunny svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: translateY(105%);
+  opacity: 0;
+  transition: transform 0.75s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.45s ease;
+  filter: drop-shadow(0 0 5px rgba(255, 100, 200, 0.55));
+}
+
+.container:hover .bunny svg {
+  transform: translateY(0);
+  opacity: 1;
+  transition-delay: 0.08s;
+}
+
+.bunny .er {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+.container:hover .bunny .er-l { animation: ear-twitch 3.2s ease-in-out 0.9s infinite; }
+.container:hover .bunny .er-r { animation: ear-twitch 3.2s ease-in-out 1.3s infinite; }
+
+@keyframes ear-twitch {
+  0%, 78%, 100% { transform: rotate(0deg); }
+  84%           { transform: rotate(-12deg); }
+  91%           { transform: rotate(6deg); }
+}
+
+.bunny .eyes {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: blink 4s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95%           { transform: scaleY(0.1); }
+}
+
+/* ---------- Reproductor de Spotify ---------- */
+.spotify {
+  position: absolute;
+  left: calc(100% + 32px);
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 3px;
+  border-radius: 20px;
+  background: conic-gradient(
+    from var(--angle),
+    var(--pink),
+    var(--violet),
+    var(--violet-soft),
+    var(--pink-soft),
+    var(--pink)
+  );
+  box-shadow: var(--glow);
+  animation: spin-border 6s linear infinite;
+}
+
+.spotify iframe {
+  display: block;
+  width: 300px;
+  height: 352px;
+  border: 0;
+  border-radius: 17px;
+  background: #121212;
+}
+
+/* En pantallas más estrechas el reproductor pasa debajo de la tarjeta */
+@media (max-width: 1100px) {
+  body {
+    flex-direction: column;
+    padding: 20px 0 40px;
+  }
+  .spotify {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    width: fit-content;
+    margin: 36px auto 0;
+    max-width: 92vw;
+  }
+  .spotify iframe { max-width: calc(92vw - 6px); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .wave span span { animation: none; }
+  .spotify,
+  .bunny .eyes,
+  .bunny .er { animation: none !important; }
   .container::before,
   .inner_ring,
   #butterfly .wl,

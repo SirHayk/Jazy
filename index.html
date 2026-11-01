@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>xat.me/Erik</title>
+  <title>Jazy · XS</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -44,19 +44,14 @@
     </svg>
   </div>
 
+  <div class="stage">
   <div class="container">
     <div class="round_bt_container">
       <div class="inner_ring"></div>
 
-      <div
-        class="image"
-        style="
-          background-image: url(https://xatimg.com/image/0b9oFmJkZPTl.png);
-          background-size: 160px;
-          background-position: center center;
-          background-repeat: no-repeat;
-        "
-      ></div>
+      <div class="image">
+        <video src="profile.mp4" autoplay muted loop playsinline preload="auto" aria-label="Vídeo de perfil"></video>
+      </div>
 
       <div class="ring"></div>
     </div>
@@ -86,6 +81,53 @@
         </a>
       </div>
     </div>
+
+    <!-- Conejito que se asoma al pasar el cursor por la tarjeta -->
+    <div class="bunny" aria-hidden="true">
+      <svg viewBox="0 0 84 86">
+        <!-- orejas -->
+        <g class="er er-l">
+          <ellipse cx="28" cy="22" rx="8" ry="18" transform="rotate(-9 28 22)" fill="#fff1f8" stroke="#e9d5ff" stroke-width="1.2"/>
+          <ellipse cx="28" cy="23" rx="3.8" ry="12" transform="rotate(-9 28 22)" fill="#ff9fd6" opacity=".85"/>
+        </g>
+        <g class="er er-r">
+          <ellipse cx="56" cy="22" rx="8" ry="18" transform="rotate(12 56 22)" fill="#fff1f8" stroke="#e9d5ff" stroke-width="1.2"/>
+          <ellipse cx="56" cy="23" rx="3.8" ry="12" transform="rotate(12 56 22)" fill="#ff9fd6" opacity=".85"/>
+        </g>
+        <!-- cabeza -->
+        <ellipse cx="42" cy="64" rx="27" ry="26" fill="#fff1f8" stroke="#e9d5ff" stroke-width="1.2"/>
+        <!-- lazo -->
+        <g transform="translate(61 41)">
+          <ellipse cx="-5" cy="0" rx="5" ry="3.2" transform="rotate(-22 -5 0)" fill="#8a4dff"/>
+          <ellipse cx="5" cy="0" rx="5" ry="3.2" transform="rotate(22 5 0)" fill="#8a4dff"/>
+          <circle r="2.4" fill="#ff4fa8"/>
+        </g>
+        <!-- mejillas -->
+        <ellipse cx="23" cy="71" rx="5" ry="3.2" fill="#ff8fcb" opacity=".5"/>
+        <ellipse cx="61" cy="71" rx="5" ry="3.2" fill="#ff8fcb" opacity=".5"/>
+        <!-- ojos -->
+        <g class="eyes">
+          <ellipse cx="31" cy="63" rx="3.2" ry="4.2" fill="#3a1457"/>
+          <ellipse cx="53" cy="63" rx="3.2" ry="4.2" fill="#3a1457"/>
+          <circle cx="32" cy="61.4" r="1.2" fill="#fff"/>
+          <circle cx="54" cy="61.4" r="1.2" fill="#fff"/>
+        </g>
+        <!-- nariz y boca -->
+        <ellipse cx="42" cy="70" rx="2.6" ry="2" fill="#ff6fc0"/>
+        <path d="M42 72v2.5M42 74.5Q38.5 78 35 75M42 74.5Q45.5 78 49 75" fill="none" stroke="#b07bd8" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Reproductor oficial de Spotify -->
+  <div class="spotify">
+    <iframe
+      src="https://open.spotify.com/embed/playlist/44H92cnOdpczvJ1MVCsGka?utm_source=generator&theme=0"
+      title="Playlist de Spotify"
+      width="300" height="352" frameborder="0"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy"></iframe>
+  </div>
   </div>
 
   <script>
@@ -405,6 +447,19 @@
       raf = active ? requestAnimationFrame(frame) : 0;
     }
 
+    /* sobre el reproductor de Spotify (un iframe) no llegan eventos del ratón: se oculta la mariposa */
+    var sp = document.querySelector('.spotify');
+    if (sp) {
+      sp.addEventListener('mouseenter', function () {
+        bf.classList.remove('on');
+        document.documentElement.classList.remove('has-butterfly');
+      });
+      sp.addEventListener('mouseleave', function () {
+        if (shown) bf.classList.add('on');
+        document.documentElement.classList.add('has-butterfly');
+      });
+    }
+
     document.addEventListener('mousemove', function (e) {
       tx = e.clientX; ty = e.clientY;
       if (!shown) { x = tx; y = ty; shown = true; bf.classList.add('on'); }
@@ -454,5 +509,15 @@
             }
         });
     </script>
+  <script>
+    /* asegura el autoplay del vídeo del círculo */
+    (function () {
+      var v = document.querySelector('.image video');
+      if (!v) return;
+      v.muted = true;
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {});
+    })();
+  </script>
 </body>
 </html>

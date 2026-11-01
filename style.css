@@ -1,0 +1,308 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+
+/* Ángulo animable para el borde giratorio */
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+:root {
+  --pink: #ff4fa8;
+  --pink-soft: #ff9fd6;
+  --violet: #8a4dff;
+  --violet-soft: #c58bff;
+  --glow: 0 25px 50px -12px rgba(255, 60, 170, 0.35),
+    0 0 36px rgba(138, 77, 255, 0.28);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Nunito", sans-serif;
+}
+
+body {
+  background: #05010f; /* noche; la aurora se dibuja encima en el canvas */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+  align-items: center;
+}
+
+/* Fondo de aurora boreal */
+#aurora {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  display: block;
+}
+
+/* Respaldo si el navegador no soporta WebGL */
+body.no-webgl {
+  background:
+    radial-gradient(ellipse 80% 50% at 30% 85%, rgba(255, 70, 170, 0.45), transparent 70%),
+    radial-gradient(ellipse 70% 45% at 75% 70%, rgba(135, 55, 255, 0.45), transparent 70%),
+    linear-gradient(#05010f, #14032e);
+}
+body.no-webgl #aurora { display: none; }
+
+/* ---------- Tarjeta ---------- */
+.container {
+  position: relative;
+  width: 430px;
+  max-width: 92vw;
+  height: 500px;
+  background-color: transparent;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: var(--glow);
+  transition: 0.5s ease-in-out;
+}
+
+/* Borde de degradado rosa y morado que gira alrededor de la tarjeta */
+.container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 3px;
+  background: conic-gradient(
+    from var(--angle),
+    var(--pink),
+    var(--violet),
+    var(--violet-soft),
+    var(--pink-soft),
+    var(--pink)
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  pointer-events: none;
+  animation: spin-border 6s linear infinite;
+}
+
+@keyframes spin-border {
+  to { --angle: 360deg; }
+}
+
+.container:hover {
+  transform: translateY(-17px);
+  animation: shadow-pop-tr 0.3s cubic-bezier(0.47, 0, 0.745, 0.715) both;
+}
+
+@keyframes shadow-pop-tr {
+  0% {
+    box-shadow: var(--glow);
+    transform: translateX(0) translateY(0);
+  }
+  100% {
+    box-shadow: 1px -1px var(--pink), 2px -2px var(--violet),
+      3px -3px var(--pink), 4px -4px var(--violet), 5px -5px var(--pink),
+      6px -6px var(--violet), 7px -7px var(--pink), 8px -8px var(--violet),
+      0 25px 50px -12px rgba(255, 60, 170, 0.35),
+      0 0 36px rgba(138, 77, 255, 0.28);
+    transform: translateX(-8px) translateY(8px);
+  }
+}
+
+/* ---------- Foto de perfil ---------- */
+.round_bt_container {
+  cursor: pointer;
+  position: absolute;
+  float: left;
+  width: 160px;
+  height: 160px;
+  top: 0;
+  margin-top: 20px;
+}
+
+.content {
+  width: 90%;
+  text-align: center;
+  color: #fff;
+}
+
+.content h2 {
+  font-size: 30px;
+  margin-top: 170px;
+}
+
+.content h4 {
+  color: #e2c6ff;
+}
+.content p {
+  margin: 30px 0;
+}
+
+.content .email {
+  width: 70%;
+  margin: 0 auto;
+  background: linear-gradient(90deg, #d63a95, #7a47e0);
+  box-shadow: 0 6px 18px -6px rgba(255, 60, 170, 0.6);
+  padding: 5px 0;
+  border-radius: 25px;
+  margin-bottom: 30px;
+}
+
+.social a {
+  color: #f3e6ff;
+  margin: 15px;
+  font-size: 25px;
+  display: inline-block;
+  transition: color 0.2s ease, transform 0.2s ease, filter 0.2s ease;
+}
+
+.social a svg {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  display: block;
+}
+
+.social a:hover {
+  color: #fff;
+  transform: translateY(-3px);
+  filter: drop-shadow(0 0 8px var(--pink));
+}
+
+.image {
+  position: absolute;
+  border-radius: 50%;
+  width: 160px;
+  height: 160px;
+  padding: 0;
+  margin: 0;
+  border: 0px solid #eeeeee;
+  transition: all 0.2s ease;
+}
+
+.image img {
+  border-radius: 50%;
+}
+
+.round_bt_container:hover .ring {
+  width: 160px;
+  height: 160px;
+  border: 5px solid var(--violet-soft);
+  box-shadow: 0 0 18px rgba(138, 77, 255, 0.7);
+  padding: 15px;
+  margin-left: -20px;
+  margin-top: -20px;
+}
+
+.round_bt_container:hover .inner_ring {
+  border: 2px solid var(--pink-soft);
+  margin-left: 3px;
+  margin-top: 3px;
+}
+.inner_ring {
+  top: -5px;
+  left: -5px;
+  position: absolute;
+  margin-right: 40px;
+  border-radius: 50%;
+  border: 5px solid var(--pink);
+  box-shadow: 0 0 18px rgba(255, 79, 168, 0.55), 0 0 6px rgba(138, 77, 255, 0.5);
+  width: 160px;
+  height: 160px;
+  transition: all 0.2s ease;
+  animation: ring-pulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes ring-pulse {
+  from { box-shadow: 0 0 12px rgba(255, 79, 168, 0.45), 0 0 4px rgba(138, 77, 255, 0.4); }
+  to   { box-shadow: 0 0 26px rgba(255, 79, 168, 0.85), 0 0 12px rgba(138, 77, 255, 0.7); }
+}
+
+.ring {
+  position: absolute;
+  border-radius: 50%;
+  width: 160px;
+  height: 160px;
+  padding: 0;
+  margin: 0;
+  border: 0px solid #eeeeee;
+  transition: all 0.2s ease;
+}
+
+/* ---------- Cursor de mariposa y brillos ---------- */
+.has-butterfly,
+.has-butterfly * {
+  cursor: none !important;
+}
+
+#sparkles {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+#butterfly {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 38px;
+  height: 38px;
+  margin: -19px 0 0 -19px;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.25s;
+  will-change: transform;
+}
+#butterfly.on { opacity: 1; }
+
+#butterfly svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  display: block;
+  filter: drop-shadow(0 0 5px rgba(255, 100, 200, 0.85))
+    drop-shadow(0 0 12px rgba(150, 90, 255, 0.6));
+}
+
+/* Aleteo: las alas se cierran y abren desde el cuerpo */
+#butterfly .wl,
+#butterfly .wr {
+  transform-box: fill-box;
+  animation: flap 0.45s ease-in-out infinite alternate;
+}
+#butterfly .wl { transform-origin: 100% 50%; }
+#butterfly .wr { transform-origin: 0 50%; }
+#butterfly.fast .wl,
+#butterfly.fast .wr { animation-duration: 0.12s; }
+
+@keyframes flap {
+  from { transform: scaleX(1); }
+  to   { transform: scaleX(0.22); }
+}
+
+/* ---------- Texto en ola ---------- */
+.wave span span {
+  display: inline-block;
+  animation: wave 1.8s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.09s);
+}
+
+@keyframes wave {
+  0%, 55%, 100% { transform: translateY(0); }
+  27%           { transform: translateY(-9px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wave span span { animation: none; }
+  .container::before,
+  .inner_ring,
+  #butterfly .wl,
+  #butterfly .wr { animation: none; }
+}

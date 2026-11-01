@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>xat.me/Erik</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Fondo: aurora boreal (WebGL) -->
+  <canvas id="aurora" aria-hidden="true"></canvas>
+
+  <!-- Brillos del cursor y mariposa -->
+  <canvas id="sparkles" aria-hidden="true"></canvas>
+  <div id="butterfly" aria-hidden="true">
+    <svg viewBox="0 0 64 64">
+      <defs>
+        <linearGradient id="bfWing" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#ff6fc0"/>
+          <stop offset="1" stop-color="#8a5bff"/>
+        </linearGradient>
+      </defs>
+      <g class="wl" fill="url(#bfWing)" stroke="#ffe3f3" stroke-opacity=".75" stroke-width="1">
+        <path d="M32 30C22 8 4 6 4 20c0 10 12 14 28 12Z"/>
+        <path d="M32 33C18 34 8 42 12 52c4 8 16 0 20-14Z"/>
+        <circle cx="14" cy="18" r="2.4" fill="#fff" fill-opacity=".6" stroke="none"/>
+        <circle cx="11" cy="24" r="1.4" fill="#fff" fill-opacity=".5" stroke="none"/>
+        <circle cx="20" cy="47" r="2" fill="#fff" fill-opacity=".55" stroke="none"/>
+      </g>
+      <g class="wr" fill="url(#bfWing)" stroke="#ffe3f3" stroke-opacity=".75" stroke-width="1">
+        <path d="M32 30C42 8 60 6 60 20c0 10-12 14-28 12Z"/>
+        <path d="M32 33C46 34 56 42 52 52c-4 8-16 0-20-14Z"/>
+        <circle cx="50" cy="18" r="2.4" fill="#fff" fill-opacity=".6" stroke="none"/>
+        <circle cx="53" cy="24" r="1.4" fill="#fff" fill-opacity=".5" stroke="none"/>
+        <circle cx="44" cy="47" r="2" fill="#fff" fill-opacity=".55" stroke="none"/>
+      </g>
+      <path d="M31 22Q27 14 23 12M33 22Q37 14 41 12" fill="none" stroke="#ffd6ee" stroke-width="1.2" stroke-linecap="round"/>
+      <circle cx="23" cy="12" r="1.2" fill="#ffd6ee"/>
+      <circle cx="41" cy="12" r="1.2" fill="#ffd6ee"/>
+      <ellipse cx="32" cy="33" rx="2.4" ry="10.5" fill="#3a1457" stroke="#ff9fd6" stroke-width=".8"/>
+      <circle cx="32" cy="23" r="2.6" fill="#3a1457" stroke="#ff9fd6" stroke-width=".8"/>
+    </svg>
+  </div>
+
+  <div class="container">
+    <div class="round_bt_container">
+      <div class="inner_ring"></div>
+
+      <div
+        class="image"
+        style="
+          background-image: url(https://xatimg.com/image/0b9oFmJkZPTl.png);
+          background-size: 160px;
+          background-position: center center;
+          background-repeat: no-repeat;
+        "
+      ></div>
+
+      <div class="ring"></div>
+    </div>
+
+    <div class="content">
+      <h2 class="wave" aria-label="xat.me/Erik"><span aria-hidden="true"><span style="--i:0">x</span><span style="--i:1">a</span><span style="--i:2">t</span><span style="--i:3">.</span><span style="--i:4">m</span><span style="--i:5">e</span><span style="--i:6">/</span><span style="--i:7">J</span><span style="--i:8">a</span><span style="--i:9">z</span><span style="--i:10">y</span></span></h2>
+      <h4>(2022)</h4>
+      <p>⚡Text \ Example</p>
+      <div class="email">www.tiktok.com/@jazyiin</div>
+
+      <div class="social">
+        <!-- X (x.com) -->
+        <a href="https://www.x.com/jazyiin" target="_blank" aria-label="X" title="X">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
+          </svg>
+        </a>
+        <!-- TikTok -->
+        <a href="https://www.tiktok.com/@jazyiin" target="_blank" aria-label="TikTok" title="TikTok">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  /* ============================================================
+     Aurora boreal rosa / morado — shader WebGL
+     - Renderiza a media resolución y el navegador la escala (aspecto suave y barato)
+     - Limitado a ~30 fps, se pausa si la pestaña no está visible
+     - Respeta prefers-reduced-motion (un solo frame estático)
+     - Si no hay WebGL, queda el degradado CSS de respaldo
+     ============================================================ */
+  (function () {
+    var canvas = document.getElementById('aurora');
+    var gl = canvas.getContext('webgl', {
+      antialias: false,
+      alpha: false,
+      depth: false,
+      stencil: false,
+      powerPreference: 'low-power'
+    });
+    if (!gl) { document.body.classList.add('no-webgl'); return; }
+
+    var VERT =
+      'attribute vec2 a;' +
+      'void main(){ gl_Position = vec4(a, 0.0, 1.0); }';
+
+    var FRAG = [
+      '#ifdef GL_FRAGMENT_PRECISION_HIGH',
+      'precision highp float;',
+      '#else',
+      'precision mediump float;',
+      '#endif',
+      'uniform vec2 u_res;',
+      'uniform float u_time;',
+
+      'float hash(vec2 p){',
+      '  vec3 p3 = fract(vec3(p.xyx) * .1031);',
+      '  p3 += dot(p3, p3.yzx + 33.33);',
+      '  return fract((p3.x + p3.y) * p3.z);',
+      '}',
+
+      'float noise(vec2 p){',
+      '  vec2 i = floor(p), f = fract(p);',
+      '  f = f * f * (3.0 - 2.0 * f);',
+      '  return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x),',
+      '             mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y);',
+      '}',
+
+      'float fbm(vec2 p){',
+      '  float v = 0.0, a = 0.5;',
+      '  for (int i = 0; i < 4; i++){',
+      '    v += a * noise(p);',
+      '    p = p * 2.03 + vec2(17.0, 9.0);',
+      '    a *= 0.5;',
+      '  }',
+      '  return v;',
+      '}',
+
+      'void main(){',
+      '  vec2 uv = gl_FragCoord.xy / u_res;',
+      '  float asp = u_res.x / u_res.y;',
+      '  vec2 p = vec2(uv.x * asp, uv.y);',
+      '  float t = u_time;',
+
+      /* cielo nocturno */
+      '  vec3 col = mix(vec3(0.020, 0.006, 0.055), vec3(0.055, 0.012, 0.120), pow(uv.y, 0.8));',
+      '  col += vec3(0.11, 0.02, 0.13) * pow(1.0 - uv.y, 3.0) * 0.55;',
+
+      /* tres cortinas de aurora con distinta velocidad y altura */
+      '  float total = 0.0;',
+      '  for (int i = 0; i < 3; i++){',
+      '    float f = float(i);',
+      '    float w = fbm(vec2(p.x * 0.9 + f * 4.3 + t * (0.045 + f * 0.018), f * 7.1 + t * 0.03));',
+      '    float y0 = 0.40 + f * 0.07 + (w - 0.5) * 0.60;',
+      '    float d = uv.y - y0;',
+      /* borde inferior nítido, difuminado hacia arriba */
+      '    float body = d < 0.0 ? exp(-d * d * 240.0) : exp(-d * 4.2);',
+      /* rayos verticales que se desplazan */
+      '    float rays = fbm(vec2(p.x * 9.0 + w * 6.0 + f * 10.0, t * 0.07 + f));',
+      '    rays = smoothstep(0.22, 0.85, rays);',
+      '    float shimmer = 0.78 + 0.22 * sin(t * 0.55 + p.x * 3.0 + f * 2.0);',
+      '    float inten = body * (0.30 + 0.95 * rays) * shimmer;',
+      /* rosa abajo → morado arriba */
+      '    vec3 c = mix(vec3(1.00, 0.27, 0.66), vec3(0.52, 0.22, 1.00), smoothstep(-0.05, 0.55, d));',
+      '    col += c * inten * (0.60 - f * 0.13);',
+      '    total += inten;',
+      '  }',
+
+      /* estrellas tenues que se apagan donde hay aurora */
+      '  float s = hash(floor(gl_FragCoord.xy / 3.0));',
+      '  float star = step(0.9975, s) * (0.55 + 0.45 * sin(t * 1.8 + s * 60.0));',
+      '  star *= smoothstep(0.25, 0.7, uv.y) * (1.0 - clamp(total * 1.5, 0.0, 1.0));',
+      '  col += vec3(0.85, 0.80, 1.0) * star * 0.6;',
+
+      /* tone mapping suave + dithering para evitar bandas */
+      '  col = 1.0 - exp(-col * 1.45);',
+      '  col += (hash(gl_FragCoord.xy + fract(t)) - 0.5) / 255.0;',
+      '  gl_FragColor = vec4(col, 1.0);',
+      '}'
+    ].join('\n');
+
+    function compile(type, src) {
+      var s = gl.createShader(type);
+      gl.shaderSource(s, src);
+      gl.compileShader(s);
+      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+        console.warn(gl.getShaderInfoLog(s));
+        return null;
+      }
+      return s;
+    }
+
+    var vs = compile(gl.VERTEX_SHADER, VERT);
+    var fs = compile(gl.FRAGMENT_SHADER, FRAG);
+    if (!vs || !fs) { document.body.classList.add('no-webgl'); return; }
+
+    var prog = gl.createProgram();
+    gl.attachShader(prog, vs);
+    gl.attachShader(prog, fs);
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+      document.body.classList.add('no-webgl');
+      return;
+    }
+    gl.useProgram(prog);
+
+    /* triángulo que cubre toda la pantalla */
+    var buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    var loc = gl.getAttribLocation(prog, 'a');
+    gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+    var uRes = gl.getUniformLocation(prog, 'u_res');
+    var uTime = gl.getUniformLocation(prog, 'u_time');
+
+    var SCALE = 0.5;       // resolución interna (0.5 = mitad). Sube a 0.75 para más nitidez
+    var FPS = 30;          // límite de fotogramas
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function resize() {
+      var w = Math.max(2, Math.floor(window.innerWidth * SCALE));
+      var h = Math.max(2, Math.floor(window.innerHeight * SCALE));
+      if (canvas.width !== w || canvas.height !== h) {
+        canvas.width = w;
+        canvas.height = h;
+        gl.viewport(0, 0, w, h);
+      }
+      gl.uniform2f(uRes, canvas.width, canvas.height);
+    }
+
+    var start = performance.now() + 20000; // arranca con la aurora ya "en movimiento"
+    var last = 0, raf = 0;
+
+    function draw(now) {
+      gl.uniform1f(uTime, (now - start) / 1000);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+
+    function loop(now) {
+      raf = requestAnimationFrame(loop);
+      if (now - last < 1000 / FPS) return;
+      last = now;
+      draw(now);
+    }
+
+    window.addEventListener('resize', function () {
+      resize();
+      if (reduce) draw(performance.now());
+    });
+
+    document.addEventListener('visibilitychange', function () {
+      if (reduce) return;
+      if (document.hidden) cancelAnimationFrame(raf);
+      else raf = requestAnimationFrame(loop);
+    });
+
+    canvas.addEventListener('webglcontextlost', function (e) {
+      e.preventDefault();
+      cancelAnimationFrame(raf);
+      document.body.classList.add('no-webgl');
+    });
+
+    resize();
+    if (reduce) draw(performance.now());
+    else raf = requestAnimationFrame(loop);
+  })();
+  </script>
+
+  <script>
+  /* ============================================================
+     Cursor de mariposa + estela de brillos
+     - Solo con ratón (en pantallas táctiles no se activa)
+     - Brillos en un canvas con sprites precalculados
+     - El bucle se detiene solo cuando no hay nada que animar
+     ============================================================ */
+  (function () {
+    var bf = document.getElementById('butterfly');
+    var cv = document.getElementById('sparkles');
+    var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (!fine) { bf.remove(); cv.remove(); return; }
+
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var ctx = cv.getContext('2d');
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    document.documentElement.classList.add('has-butterfly');
+
+    function resize() {
+      cv.width = Math.floor(window.innerWidth * dpr);
+      cv.height = Math.floor(window.innerHeight * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    /* sprites: punto de luz y estrella de 4 puntas en rosa, morado y blanco */
+    function makeSprite(rgb, star) {
+      var c = document.createElement('canvas');
+      c.width = c.height = 32;
+      var g = c.getContext('2d');
+      var grad = g.createRadialGradient(16, 16, 0, 16, 16, 16);
+      grad.addColorStop(0, 'rgba(255,255,255,1)');
+      grad.addColorStop(0.22, 'rgba(' + rgb + ',0.9)');
+      grad.addColorStop(1, 'rgba(' + rgb + ',0)');
+      g.fillStyle = grad;
+      g.fillRect(0, 0, 32, 32);
+      if (star) {
+        g.fillStyle = '#fff';
+        g.beginPath();
+        g.moveTo(16, 1);
+        g.quadraticCurveTo(17.5, 14.5, 31, 16);
+        g.quadraticCurveTo(17.5, 17.5, 16, 31);
+        g.quadraticCurveTo(14.5, 17.5, 1, 16);
+        g.quadraticCurveTo(14.5, 14.5, 16, 1);
+        g.fill();
+      }
+      return c;
+    }
+    var sprites = [];
+    ['255,111,192', '255,159,214', '167,123,255', '197,139,255', '255,255,255']
+      .forEach(function (rgb) { sprites.push(makeSprite(rgb, false), makeSprite(rgb, true)); });
+
+    var parts = [];
+    var tx = 0, ty = 0, x = 0, y = 0, ang = 0, acc = 0;
+    var shown = false, raf = 0, prev = 0;
+
+    function rnd(a, b) { return a + Math.random() * (b - a); }
+
+    function emit(px, py, vx, vy, size) {
+      if (parts.length > 220) parts.shift();
+      parts.push({
+        x: px, y: py, vx: vx, vy: vy,
+        life: rnd(0.7, 1.4), age: 0,
+        size: size, ph: rnd(0, 6.28),
+        s: sprites[(Math.random() * sprites.length) | 0]
+      });
+    }
+
+    function ensure() {
+      if (!raf) { prev = performance.now(); raf = requestAnimationFrame(frame); }
+    }
+
+    function frame(now) {
+      var dt = Math.min((now - prev) / 1000, 0.05);
+      prev = now;
+
+      /* la mariposa persigue al puntero con un pequeño retraso */
+      var k = 1 - Math.exp(-dt * 20);
+      var ox = x, oy = y;
+      x += (tx - x) * k;
+      y += (ty - y) * k;
+      var dx = x - ox, dy = y - oy;
+      var dist = Math.sqrt(dx * dx + dy * dy);
+      var speed = dist / Math.max(dt, 0.001);
+
+      if (speed > 40) {
+        var target = Math.atan2(dy, dx) * 180 / Math.PI + 90;
+        var diff = ((target - ang + 540) % 360) - 180;
+        ang += diff * Math.min(1, dt * 10);
+      }
+      bf.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0) rotate(' + ang + 'deg)';
+      bf.classList.toggle('fast', speed > 120);
+
+      /* estela de brillos detrás de las alas */
+      if (!reduce && dist > 0) {
+        acc += dist;
+        while (acc > 9) {
+          acc -= 9;
+          var n = speed > 350 ? 2 : 1;
+          for (var i = 0; i < n; i++) {
+            emit(x - (dx / dist) * 8 + rnd(-6, 6), y - (dy / dist) * 8 + rnd(-6, 6),
+                 rnd(-22, 22), rnd(-14, 24), rnd(7, 17));
+          }
+        }
+      }
+
+      /* actualizar y dibujar partículas */
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      ctx.globalCompositeOperation = 'lighter';
+      for (var j = parts.length - 1; j >= 0; j--) {
+        var p = parts[j];
+        p.age += dt;
+        if (p.age >= p.life) { parts[j] = parts[parts.length - 1]; parts.pop(); continue; }
+        var t = p.age / p.life;
+        p.vy += 26 * dt;
+        p.vx *= 1 - dt * 1.5;
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        var a = Math.pow(1 - t, 1.3) * (0.65 + 0.35 * Math.sin(p.age * 18 + p.ph));
+        var s = p.size * (0.4 + 0.6 * (1 - t));
+        ctx.globalAlpha = a;
+        ctx.drawImage(p.s, p.x - s / 2, p.y - s / 2, s, s);
+      }
+      ctx.globalAlpha = 1;
+
+      var active = parts.length > 0 || Math.abs(tx - x) > 0.2 || Math.abs(ty - y) > 0.2;
+      raf = active ? requestAnimationFrame(frame) : 0;
+    }
+
+    document.addEventListener('mousemove', function (e) {
+      tx = e.clientX; ty = e.clientY;
+      if (!shown) { x = tx; y = ty; shown = true; bf.classList.add('on'); }
+      ensure();
+    }, { passive: true });
+
+    document.addEventListener('mouseout', function (e) {
+      if (!e.relatedTarget) { shown = false; bf.classList.remove('on'); }
+    });
+
+    /* al hacer clic, una explosión de brillos */
+    document.addEventListener('mousedown', function (e) {
+      if (reduce) return;
+      for (var i = 0; i < 16; i++) {
+        var a = rnd(0, 6.283), v = rnd(40, 150);
+        emit(e.clientX, e.clientY, Math.cos(a) * v, Math.sin(a) * v - 20, rnd(8, 20));
+      }
+      ensure();
+    });
+  })();
+  </script>
+</body>
+</html>

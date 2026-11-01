@@ -29,6 +29,11 @@ body {
   justify-content: center;
   font-family: "Poppins", sans-serif;
   align-items: center;
+  margin-top: 30px;
+  webkit-user-select: none; /* Safari */
+            -moz-user-select: none;    /* Firefox */
+            -ms-user-select: none;     /* IE 10+ y Edge antiguo */
+            user-select: none;         /* Estándar (Chrome, Edge, Opera) */
 }
 
 /* Fondo de aurora boreal */
@@ -55,7 +60,7 @@ body.no-webgl #aurora { display: none; }
   position: relative;
   width: 430px;
   max-width: 92vw;
-  height: 500px;
+  height: 600px;
   background-color: transparent;
   border-radius: 25px;
   display: flex;
@@ -69,7 +74,7 @@ body.no-webgl #aurora { display: none; }
 /* Borde de degradado rosa y morado que gira alrededor de la tarjeta */
 .container::before {
   content: "";
-  position: absolute;
+  position: flex;
   inset: 0;
   border-radius: inherit;
   padding: 3px;
@@ -139,6 +144,7 @@ body.no-webgl #aurora { display: none; }
 }
 .content p {
   margin: 30px 0;
+  font-size: 12px;
 }
 
 .content .email {

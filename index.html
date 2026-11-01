@@ -64,7 +64,7 @@
     <div class="content">
       <h2 class="wave" aria-label="xat.me/Erik"><span aria-hidden="true"><span style="--i:0">x</span><span style="--i:1">a</span><span style="--i:2">t</span><span style="--i:3">.</span><span style="--i:4">m</span><span style="--i:5">e</span><span style="--i:6">/</span><span style="--i:7">J</span><span style="--i:8">a</span><span style="--i:9">z</span><span style="--i:10">y</span></span></h2>
       <h4>(2022)</h4>
-      <p>⚡Text \ Example</p>
+      <p>DICEN QUE LAS MARIPOSAS NO PUEDEN VER SUS ALAS...Ellas no saben lo maravillosas que realmente son... Quiza tú seas una mariposa... Porque eres maravillosa, pero muchas veces no logras verlo... Recuerda que tu valor no esta en lo que tienes, haces o has logrado. Porque eres maravillosa, pero muchas veces no logras verlo... Recuerda que tu valor no esta en lo que tienes, haces o has logrado, sino en quién eres.</p>
       <div class="email">www.tiktok.com/@jazyiin</div>
 
       <div class="social">
@@ -422,5 +422,33 @@
     });
   })();
   </script>
+  <script>
+        // Bloquea el menú del clic derecho (Context Menu)
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // Bloquea la acción de copiar (Ctrl+C / Cmd+C)
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+        });
+
+        // Bloquea el arrastre de elementos (como imágenes o texto)
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+        });
+
+        // Opcional: Bloquea atajos de teclado comunes para inspeccionar o copiar (F12, Ctrl+Shift+I, Ctrl+U)
+        document.addEventListener('keydown', function(e) {
+            if (
+                e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+                (e.ctrlKey && e.shiftKey && e.key === 'C') || 
+                (e.ctrlKey && e.key === 'u')
+            ) {
+                e.preventDefault();
+            }
+        });
+    </script>
 </body>
 </html>

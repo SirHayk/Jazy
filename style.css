@@ -150,11 +150,58 @@ body.no-webgl #aurora { display: none; }
 .content .email {
   width: 70%;
   margin: 0 auto;
-  background: linear-gradient(90deg, #d63a95, #7a47e0);
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    110deg,
+    #d63a95,
+    #8a4dff,
+    #ff4fa8,
+    #7a47e0,
+    #d63a95
+  );
+  background-size: 300% 100%;
   box-shadow: 0 6px 18px -6px rgba(255, 60, 170, 0.6);
   padding: 5px 0;
   border-radius: 25px;
   margin-bottom: 30px;
+  animation:
+    email-flow 9s linear infinite,
+    email-glow 3.5s ease-in-out infinite alternate;
+}
+
+/* Reflejo de luz que cruza el recuadro de vez en cuando */
+.content .email::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 38%;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.32),
+    transparent
+  );
+  transform: translateX(-160%) skewX(-20deg);
+  pointer-events: none;
+  animation: email-shine 5.5s ease-in-out infinite;
+}
+
+@keyframes email-flow {
+  from { background-position: 0% 0; }
+  to   { background-position: 150% 0; }
+}
+
+@keyframes email-glow {
+  from { box-shadow: 0 6px 16px -6px rgba(255, 60, 170, 0.45), 0 0 0 rgba(138, 77, 255, 0); }
+  to   { box-shadow: 0 8px 22px -6px rgba(255, 60, 170, 0.75), 0 0 16px rgba(138, 77, 255, 0.35); }
+}
+
+@keyframes email-shine {
+  0%        { transform: translateX(-160%) skewX(-20deg); }
+  40%, 100% { transform: translateX(360%) skewX(-20deg); }
 }
 
 .social a {
@@ -304,10 +351,44 @@ body.no-webgl #aurora { display: none; }
 }
 
 /* ---------- Texto en ola ---------- */
+.wave {
+  font-weight: 600;
+  animation: title-glow 2.6s ease-in-out infinite alternate;
+}
+
+/* Relleno interno tipo aurora: rosa, lila, morado y destellos blancos que fluyen por las letras */
 .wave span span {
   display: inline-block;
-  animation: wave 1.8s ease-in-out infinite;
-  animation-delay: calc(var(--i) * 0.09s);
+  background: linear-gradient(
+    110deg,
+    #ff4fa8 0%,
+    #ff9fd6 15%,
+    #ffffff 24%,
+    #c58bff 36%,
+    #8a4dff 52%,
+    #c58bff 68%,
+    #ff4fa8 85%,
+    #ff4fa8 100%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation:
+    wave 1.8s ease-in-out infinite,
+    aurora-text 5s linear infinite;
+  animation-delay: calc(var(--i) * 0.09s), calc(var(--i) * -0.4s);
+}
+
+@keyframes aurora-text {
+  from { background-position: 0% 0; }
+  to   { background-position: 150% 0; }
+}
+
+@keyframes title-glow {
+  from { filter: drop-shadow(0 0 5px rgba(255, 79, 168, 0.55)) drop-shadow(0 0 12px rgba(138, 77, 255, 0.4)); }
+  to   { filter: drop-shadow(0 0 9px rgba(255, 79, 168, 0.9)) drop-shadow(0 0 22px rgba(138, 77, 255, 0.75)); }
 }
 
 @keyframes wave {
@@ -424,7 +505,10 @@ body.no-webgl #aurora { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .wave span span { animation: none; }
+  .wave,
+  .wave span span,
+  .content .email,
+  .content .email::after { animation: none; }
   .spotify,
   .bunny .eyes,
   .bunny .er { animation: none !important; }

@@ -555,6 +555,12 @@ body.no-webgl #aurora { display: none; }
     title-glow 2.6s ease-in-out infinite alternate;
 }
 
+/* Contenedor del texto para colocar las estrellitas a su alrededor */
+.star-wrap {
+  position: relative;
+  display: inline-block;
+}
+
 .star {
   position: absolute;
   left: var(--x);
